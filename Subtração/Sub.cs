@@ -12,15 +12,15 @@ namespace Calculadora
         {
             Console.WriteLine("Digite o primeiro número: ");
             var first = Console.ReadLine();
-            if (!int.TryParse(first, out var a))
+            if (!float.TryParse(first, out var a))
                 Console.WriteLine("Número inválido");
 
             Console.WriteLine("Digite o segundo número: ");
             var second = Console.ReadLine();
-            if (!int.TryParse(second, out var b))
+            if (!float.TryParse(second, out var b))
                 Console.WriteLine("Número inválido");
 
-            int c = a - b;
+            float c = a - b;
             Console.WriteLine($"O resultado da subtração de {a} menos {b} é igual a: {c}");
         }
 
