@@ -1,7 +1,4 @@
-﻿using System;
-
-namespace Domain11
-
+﻿namespace Domain
 {
     public class Teams
     {
