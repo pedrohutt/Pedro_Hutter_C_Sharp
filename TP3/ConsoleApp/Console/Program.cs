@@ -74,7 +74,27 @@ namespace ConsoleApp
             Console.WriteLine("\nConfirme os dados e escolha uma opção." +
                 "\n 1 - Correto" +
                 "\n 2 - Incorreto");
-            Console.ReadLine();
+            string option = Console.ReadLine().ToUpper();
+
+            if (option == "1")
+            {
+                Teams teams = new Teams()
+                {
+                    Nome = nome,
+                    Estado = estado,
+                    DataCriacao = dataCriacao,
+                    TitulosBrasileiros = titulosBR,
+                    TitulosEstaduais = titulosES,
+                };
+                TeamsRepositorie.TeamRegister(teams);
+                Console.WriteLine("Usuário cadastrado!");
+            }
+            else if (option == "2")
+            {
+                BackToMenu();
+            }
+            else
+            Console.WriteLine("Escolha uma opção válida! Tente novamente");
 
         }
         public static void SearchTeam()
@@ -87,7 +107,7 @@ namespace ConsoleApp
             
             teams = TeamsRepositorie.SearchTeam(searchName);
 
-            if (teams.Any())
+            if (!teams.Any())
                 Console.WriteLine("Nenhum usuário encontrado.");
             else
             {
