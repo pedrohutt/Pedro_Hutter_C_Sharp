@@ -1,0 +1,8 @@
+﻿
+namespace Dominio
+{
+    class Dominio
+    {
+
+    }
+}
