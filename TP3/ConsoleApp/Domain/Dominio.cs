@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dominio
+namespace TeamDomain
 {
     public class Teams
     {

@@ -1,17 +1,13 @@
-﻿using Dominio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Infraestrutura
+﻿using TeamDomain;
+namespace Infraestructure
 {
-    public class EntidadeRepositorio
+    public class TeamsRepositorie
     {
         private static List<Teams> ListaTeams = new List<Teams>();
-        
+
         public static void TeamRegister(Teams team)
         {
-            if(team != null)
+            if (team != null)
                 ListaTeams.Add(team);
         }
 
@@ -24,6 +20,14 @@ namespace Infraestrutura
                     teams.Add(team);
             }
             return teams;
+        }
+
+        public static string ShowTeamInfo(Teams team)
+        {
+            string teamInfo = $"Nome do Time: {team.Nome} - Pertence ao estado:{team.Estado}" +
+                $"\n Titulos Estaduais {team.TitulosEstaduais} - Titulos Brasileiros {team.TitulosBrasileiros}" +
+                $"\n O Clube já possui {team.tempoAtivo()} anos de história!";
+            return teamInfo;
         }
     }
 }
