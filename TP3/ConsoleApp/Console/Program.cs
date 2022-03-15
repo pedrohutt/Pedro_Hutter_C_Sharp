@@ -78,13 +78,14 @@ namespace ConsoleApp
 
         }
         public static void SearchTeam()
-        {   
+        {
+            List<Teams> teams;
             int index = 0; int indexOption;
             Console.WriteLine("Digite o nome do Time que deseja ter mais informações: ");
             string searchName = Console.ReadLine().ToUpper();
             if (string.IsNullOrEmpty(searchName)) BackToMenu();
             
-            var teams = TeamsRepositorie.SearchTeam(searchName);
+            teams = TeamsRepositorie.SearchTeam(searchName);
 
             if (teams.Any())
                 Console.WriteLine("Nenhum usuário encontrado.");
