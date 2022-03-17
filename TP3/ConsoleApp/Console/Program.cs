@@ -13,7 +13,7 @@ namespace ConsoleApp
         public static void MenuOpcoes()
         {
             bool Menu = true;
-            string opcaoMenu;
+            string? opcaoMenu;
             do
             {
                 Console.WriteLine("\n### Gerenciador de Times de Futebol ###"
@@ -41,7 +41,7 @@ namespace ConsoleApp
         }
         public static void AddTeam()
         {
-            string nome, estado;
+            string? nome, estado;
             DateTime dataCriacao;
             int titulosBR, titulosES;
 
@@ -74,7 +74,7 @@ namespace ConsoleApp
             Console.WriteLine("\nConfirme os dados e escolha uma opção." +
                 "\n 1 - Correto" +
                 "\n 2 - Incorreto");
-            string option = Console.ReadLine().ToUpper();
+            string? option = Console.ReadLine().ToUpper();
 
             if (option == "1")
             {
@@ -102,7 +102,7 @@ namespace ConsoleApp
             List<Teams> teams;
             int index = 0; int indexOption;
             Console.WriteLine("Digite o nome do Time que deseja ter mais informações: ");
-            string searchName = Console.ReadLine().ToUpper();
+            string? searchName = Console.ReadLine().ToUpper();
             if (string.IsNullOrEmpty(searchName)) BackToMenu();
             
             teams = TeamsRepositorie.SearchTeam(searchName);
@@ -119,11 +119,10 @@ namespace ConsoleApp
                 do Console.WriteLine("Escolha o número relacionado ao time que deseja ter mais informações:");
                 while (!int.TryParse(Console.ReadLine(), out indexOption));
                 if (indexOption < teams.Count) Console.WriteLine(TeamsRepositorie.ShowTeamInfo(teams[indexOption]));
-                Console.WriteLine("Número escolhido inválido");
+                else Console.WriteLine("Número escolhido inválido");
 
             }
         }
-
         public static void BackToMenu()
         {
             Console.WriteLine("Data inválida! Dados descartados! Pressione qualquer tecla para exibir o menu principal ...");
