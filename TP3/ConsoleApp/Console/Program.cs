@@ -7,10 +7,10 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            MenuOpcoes();
+            OptionsMenu();
             Console.ReadKey();
         }
-        public static void MenuOpcoes()
+        public static void OptionsMenu()
         {
             bool Menu = true;
             string? opcaoMenu;
@@ -113,21 +113,21 @@ namespace ConsoleApp
             {
                 foreach (var t in teams)
                 {
-                    Console.WriteLine($"{index} - {t.Nome}");
+                    Console.WriteLine($"{index +1} - {t.Nome}");
                     index++;
                 }
                 do Console.WriteLine("Escolha o número relacionado ao time que deseja ter mais informações:");
                 while (!int.TryParse(Console.ReadLine(), out indexOption));
+                indexOption -= 1;
                 if (indexOption < teams.Count) Console.WriteLine(TeamsRepositorie.ShowTeamInfo(teams[indexOption]));
                 else Console.WriteLine("Número escolhido inválido");
-
             }
         }
         public static void BackToMenu()
         {
             Console.WriteLine("Data inválida! Dados descartados! Pressione qualquer tecla para exibir o menu principal ...");
             Console.ReadKey();
-            MenuOpcoes();
+            OptionsMenu();
         }
     }
 }
