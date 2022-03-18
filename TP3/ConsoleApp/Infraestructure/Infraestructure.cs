@@ -23,9 +23,9 @@ namespace Infraestructure
         }
         public static string ShowTeamInfo(Teams team)
         {
-            string teamInfo = $"Nome do Time: {team.Nome} - Estado: {team.Estado}" +
+            string teamInfo = $"\nNome do Time: {team.Nome} - Estado: {team.Estado}" +
                 $"\n Titulos Estaduais {team.TitulosEstaduais} - Titulos Brasileiros {team.TitulosBrasileiros}" +
-                $"\n O Clube já possui {team.tempoAtivo()} anos de história!";
+                $"\n O Clube já possui {team.tempoAtivo()} anos de história!\n";
             return teamInfo;
         }
     }
