@@ -119,8 +119,10 @@ namespace ConsoleApp
                 do Console.WriteLine("Escolha o número relacionado ao time que deseja ter mais informações:");
                 while (!int.TryParse(Console.ReadLine(), out indexOption));
                 indexOption -= 1;
-                if (indexOption < teams.Count) Console.WriteLine(TeamsRepositorie.ShowTeamInfo(teams[indexOption]));
-                else Console.WriteLine("Número escolhido inválido");
+                if (indexOption < teams.Count) 
+                    Console.WriteLine(TeamsRepositorie.ShowTeamInfo(teams[indexOption]));
+                else 
+                    Console.WriteLine("Número escolhido inválido");
             }
         }
         public static void BackToMenu()
