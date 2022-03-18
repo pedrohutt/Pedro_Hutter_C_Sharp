@@ -5,7 +5,7 @@ namespace ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             OptionsMenu();
             Console.ReadKey();
@@ -32,6 +32,7 @@ namespace ConsoleApp
                         SearchTeam();
                         break;
                     case "3":
+                        Console.WriteLine("Fechando o programa! Digite qualquer tecla para fechar o aplicativo.");
                         Menu = false;
                         break;
                     default:
@@ -39,31 +40,41 @@ namespace ConsoleApp
                 }
             } while (Menu);
         }
+
         public static void AddTeam()
         {
+            string[] AskInput =
+            {
+                "Digite o nome do Time a ser adicionado:",
+                "Digite o Estado no qual o Time pertence:",
+                "Digite o número de títulos brasileiros do Time: ",
+                "Digite o número de títulos estaduais do Time: ",
+                "Informe a data de Criação do Time (formato dd/MM/yyyy):",
+            };
+
             string? nome, estado;
             DateTime dataCriacao;
             int titulosBR, titulosES;
 
-            Console.WriteLine("Digite o nome do Time a ser adicionado:");
+            Console.WriteLine(AskInput[0]);
             nome = Console.ReadLine().ToUpper();
             if (string.IsNullOrEmpty(nome))
                 BackToMenu();
 
-            Console.WriteLine("Digite o Estado no qual o Time pertence:");
+            Console.WriteLine(AskInput[1]);
             estado = Console.ReadLine().ToUpper();
             if (string.IsNullOrEmpty(estado))
                 BackToMenu();
 
-            Console.WriteLine("Digite o número de títulos brasileiros do Time: ");
+            Console.WriteLine(AskInput[2]);
             if (!int.TryParse(Console.ReadLine(), out titulosBR))
                 BackToMenu();
 
-            Console.WriteLine("Digite o número de títulos estaduais do Time: ");
+            Console.WriteLine(AskInput[3]);
             if (!int.TryParse(Console.ReadLine(), out titulosES))
                 BackToMenu();
 
-            Console.WriteLine("Informe a data de Criação do Time (formato dd/MM/yyyy):");
+            Console.WriteLine(AskInput[4]);
             if (!DateTime.TryParse(Console.ReadLine(), out dataCriacao))
                 BackToMenu();
 
@@ -72,11 +83,14 @@ namespace ConsoleApp
                               $"\n Data de Criação {dataCriacao}");
 
             Console.WriteLine("\nConfirme os dados e escolha uma opção." +
-                "\n 1 - Correto" +
-                "\n 2 - Incorreto");
-            string? option = Console.ReadLine().ToUpper();
+                              "\n 1 - Correto" +
+                              "\n 2 - Incorreto");
 
-            if (option == "1")
+            var option = Console.ReadLine();
+            if (!int.TryParse(option, out int Option))
+                BackToMenu();
+
+            if (Option == 1)
             {
                 Teams teams = new Teams()
                 {
@@ -89,7 +103,7 @@ namespace ConsoleApp
                 TeamsRepositorie.TeamRegister(teams);
                 Console.WriteLine("Usuário cadastrado!");
             }
-            else if (option == "2")
+            else if (Option == 2)
             {
                 BackToMenu();
             }
