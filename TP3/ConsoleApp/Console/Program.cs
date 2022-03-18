@@ -10,7 +10,7 @@ namespace ConsoleApp
             OptionsMenu();
             Console.ReadKey();
         }
-        public static void OptionsMenu()
+        private static void OptionsMenu()
         {
             bool Menu = true;
             string? opcaoMenu;
@@ -40,8 +40,7 @@ namespace ConsoleApp
                 }
             } while (Menu);
         }
-
-        public static void AddTeam()
+        private static void AddTeam()
         {
             string[] AskInput =
             {
@@ -111,7 +110,7 @@ namespace ConsoleApp
             Console.WriteLine("Escolha uma opção válida! Tente novamente");
 
         }
-        public static void SearchTeam()
+        private static void SearchTeam()
         {
             List<Teams> teams;
             int index = 0; int indexOption;
@@ -139,7 +138,7 @@ namespace ConsoleApp
                     Console.WriteLine("Número escolhido inválido");
             }
         }
-        public static void BackToMenu()
+        private static void BackToMenu()
         {
             Console.WriteLine("Data inválida! Dados descartados! Pressione qualquer tecla para exibir o menu principal ...");
             Console.ReadKey();
