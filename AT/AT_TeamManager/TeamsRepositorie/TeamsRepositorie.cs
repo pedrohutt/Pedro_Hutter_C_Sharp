@@ -25,9 +25,36 @@ namespace Repositorie
             }
             return searchResult;
         }
+
+        public void DeleteTeam(Guid id)
+        {
+            foreach (var team in ListaTeams)
+            {
+                if (team.Id == id)
+                {
+                    ListaTeams.Remove(team);
+                }
+            }
+        }
+
+        public void EditTeam(Guid id, string nome, string estado, int titulosBR, int titulosES, DateOnly criacao)
+        {
+            foreach(var team in ListaTeams)
+            {
+                if (team.Id == id)
+                {
+                    team.Nome = nome;
+                    team.Estado = estado;
+                    team.TitulosBrasileiros = titulosBR;
+                    team.TitulosEstaduais = titulosES;
+                    team.DataCriacao = criacao;
+                }
+            }
+        }
+
         public static string ShowTeamInfo(Teams team)
         {
-            string teamInfo = $"\nNome do Time: {team.Nome} - Estado: {team.Estado}" +
+            string teamInfo = $"\n Nome do Time: {team.Nome} - Estado: {team.Estado}" +
                 $"\n Titulos Estaduais {team.TitulosEstaduais} - Titulos Brasileiros {team.TitulosBrasileiros}" +
                 $"\n O Clube já possui {team.TempoAtivo()} anos de história!\n" +
                 $"\n O Código Guid do Time é {team.Id}";

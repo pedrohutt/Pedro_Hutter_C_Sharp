@@ -36,14 +36,16 @@ namespace ConsoleApp
                         SearchTeam();
                         break;
                     case "3":
-                        //EditTeam();
+                        EditTeam();
+                        break;
                     case "4":
                         //DeleteTeam();
-                        
+                        break;
                     case "5":
                         Console.WriteLine("Fechando o programa! Digite qualquer tecla para fechar o aplicativo.");
                         Menu = false;
                         break;
+                    
                     default:
                         break;
                 }
@@ -61,7 +63,7 @@ namespace ConsoleApp
             };
 
             string? nome, estado;
-            DateTime dataCriacao;
+            DateOnly dataCriacao;
             int titulosBR, titulosES;
 
             Console.WriteLine(AskInput[0]);
@@ -83,7 +85,7 @@ namespace ConsoleApp
                 BackToMenu();
 
             Console.WriteLine(AskInput[4]);
-            if (!DateTime.TryParse(Console.ReadLine(), out dataCriacao))
+            if (!DateOnly.TryParse(Console.ReadLine(), out dataCriacao))
                 BackToMenu();
 
             Console.WriteLine($"\n Nome {nome}  -  Estado {estado}" +
