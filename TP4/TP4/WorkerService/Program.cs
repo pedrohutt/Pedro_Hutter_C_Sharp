@@ -5,7 +5,7 @@ using Infraestructure;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
-        services.AddSingleton<ITeamRepository, TeamRepository1>();
+        services.AddSingleton<ITeamRepository, TeamRepositorie1>();
         services.AddHostedService<Worker>();
     })
     .Build();

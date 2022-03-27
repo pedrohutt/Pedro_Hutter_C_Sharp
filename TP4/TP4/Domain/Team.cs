@@ -1,12 +1,11 @@
 ﻿namespace Domain
 {
-    public class Team
+    public class Teams
     {
         public string? Nome { get; set; }
-        public string? Estado { get; set; }
+        public byte TitulosMundiais { get; set; }
         public int TitulosBrasileiros { get; set; }
-        public int TitulosEstaduais { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public DateOnly DataCriacao { get; set; }
 
         public int tempoAtivo()
         {
