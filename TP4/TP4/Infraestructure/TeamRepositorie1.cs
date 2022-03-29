@@ -23,7 +23,7 @@ namespace Infraestructure
             if (team != null)
                 _teams.Add(team);
         }
-        public static string ShowTeamInfo(Teams team)
+        public string ShowTeamInfo(Teams team)
         {
             string teamInfo = $"\n Nome do Time: {team.Nome}" +
                               $"\n Titulos Brasileiros {team.TitulosBrasileiros} - Titulos Mundiais: {team.TitulosMundiais}" +

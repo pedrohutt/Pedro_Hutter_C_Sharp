@@ -52,11 +52,11 @@ namespace WorkerService
 
                         Console.WriteLine(AskInput[1]);
                         if (!byte.TryParse(Console.ReadLine(), out byte titulosMundiais))
-                            Console.WriteLine("Digite um número.");
+                            Console.WriteLine("Digite um número. Será considerado 0");
 
                         Console.WriteLine(AskInput[2]);
                         if (!int.TryParse(Console.ReadLine(), out int titulosBR)) 
-                            Console.WriteLine("Digite um número.");
+                            Console.WriteLine("Digite um número. Será considerado 0");
 
                         Console.WriteLine(AskInput[3]);
                         if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dataCriacao))
@@ -88,9 +88,30 @@ namespace WorkerService
                             break;
 
                     case "2":
-                        var termoDePesquisa = Console.ReadLine();
-                        var entidadesEncontradas = _teamReposirotie.Search(termoDePesquisa);
-                        //SearchTeam();
+                        int index = 0; int indexOption;
+                        Console.WriteLine("Digite o nome do Time que deseja ter mais informações: ");
+                        var searchString = Console.ReadLine().ToUpper();
+                        var teamsFound = _teamReposirotie.Search(searchString);
+                        Console.WriteLine(teamsFound[0]);
+
+
+                        if (!teamsFound.Any())
+                            Console.WriteLine("Nenhum usuário encontrado.");
+                        else
+                        {
+                            foreach (var team in teamsFound)
+                            {
+                                Console.WriteLine($"{index} - {team.Nome}");
+                                index++;
+                            }
+                            do Console.WriteLine("Escolha o número relacionado ao time que deseja ter mais informações:");
+                            while (!int.TryParse(Console.ReadLine(), out indexOption));
+                            if (indexOption <= teamsFound.Count)
+                                Console.WriteLine(_teamReposirotie.ShowTeamInfo(teamsFound[indexOption]));
+                            else
+                                Console.WriteLine("Número escolhido inválido");
+                        }
+
                         break;
                     case "3":
                         //EditTeam();
