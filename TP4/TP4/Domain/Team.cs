@@ -1,7 +1,8 @@
 ﻿namespace Domain
 {
-    public class Teams
+    public class Team
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? Nome { get; set; }
         public byte TitulosMundiais { get; set; }
         public int TitulosBrasileiros { get; set; }

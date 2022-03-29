@@ -8,8 +8,10 @@ namespace Domain
 {
     public interface ITeamRepository
     {
-        IList<Teams> Search(string searchString);
-        void Add(Teams team);
-        string ShowTeamInfo(Teams team);
+        IList<Team> Search(string searchString);
+        IList<Team> Edit(int id, string nome);
+        void Add(Team team);
+        string ShowTeamInfo(Team team);
+
     }
 }

@@ -42,7 +42,6 @@ namespace WorkerService
                                 + "\n 5 - Fechar o programa");
 
                 menuOption = Console.ReadLine();
-                
                 switch (menuOption)
                 {
                     case "1":
@@ -66,12 +65,13 @@ namespace WorkerService
                                           $"\n Titulos Brasileiros {titulosBR}" +
                                           $"\n Data de Criação {dataCriacao}" +
                                           $"\n {confirmation}");
-     
+
                         if (!int.TryParse(Console.ReadLine(), out int Option))
+                            Console.WriteLine("Opção inválida!");
 
                         if (Option == 1)
                         {
-                            Teams team = new Teams()
+                            Team team = new()
                             {
                                 Nome = nome,
                                 TitulosMundiais = titulosMundiais,
@@ -82,39 +82,44 @@ namespace WorkerService
                             Console.WriteLine("Usuário cadastrado!");
                         }
                         else
-                        {
-                            Console.WriteLine("Tente novamente!");
-                        }
-                            break;
+                          Console.WriteLine("Tente novamente!");
+                        break;
 
                     case "2":
-                        int index = 0; int indexOption;
-                        Console.WriteLine("Digite o nome do Time que deseja ter mais informações: ");
-                        var searchString = Console.ReadLine().ToUpper();
+                        Console.WriteLine("\n Digite o nome do Time que deseja ter mais informações: ");
+                        string searchString = Console.ReadLine().ToUpper();
                         var teamsFound = _teamReposirotie.Search(searchString);
-                        Console.WriteLine(teamsFound[0]);
 
-
-                        if (!teamsFound.Any())
-                            Console.WriteLine("Nenhum usuário encontrado.");
+                        if (teamsFound.Count > 0)
+                        {
+                            Console.WriteLine("\n Escolha o número relacionado ao time que deseja ter mais informações:");
+                            for (var index = 0; index < teamsFound.Count; index++)
+                            {
+                                Console.WriteLine($"{index} - {teamsFound[index].Nome}");
+                            }
+                            if (!int.TryParse(Console.ReadLine(), out var indexOption) || indexOption > teamsFound.Count)
+                            {
+                                Console.WriteLine("Número escolhido inválido");
+                                continue;
+                            }
+                            if (indexOption < teamsFound.Count)
+                            {
+                                var teams = teamsFound[indexOption];
+                                Console.WriteLine(_teamReposirotie.ShowTeamInfo(teams));
+                            }
+                        }
                         else
                         {
-                            foreach (var team in teamsFound)
-                            {
-                                Console.WriteLine($"{index} - {team.Nome}");
-                                index++;
-                            }
-                            do Console.WriteLine("Escolha o número relacionado ao time que deseja ter mais informações:");
-                            while (!int.TryParse(Console.ReadLine(), out indexOption));
-                            if (indexOption <= teamsFound.Count)
-                                Console.WriteLine(_teamReposirotie.ShowTeamInfo(teamsFound[indexOption]));
-                            else
-                                Console.WriteLine("Número escolhido inválido");
+                            Console.WriteLine($"Não foi encontrado nenhum time.");
                         }
-
                         break;
+                        
                     case "3":
-                        //EditTeam();
+                        Console.WriteLine(AskInput[0]);
+
+                        _teamReposirotie.Edit(0, "FLA");
+                        
+                        break;
                     case "4":
                         //DeleteTeam();
                     case"5":
