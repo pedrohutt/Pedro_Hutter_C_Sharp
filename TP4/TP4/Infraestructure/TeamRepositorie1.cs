@@ -35,6 +35,17 @@ namespace Infraestructure
 
         }
 
+        public IList<Team> ShowAllTeams()
+        {
+            int index = 0;
+            List<Team> teams = new List<Team>();
+            foreach (var team in _teamsList)
+            {
+                Console.WriteLine($"{index} - {team.Nome}");
+                index++;
+            }
+            return teams;
+        }
         public string ShowTeamInfo(Team team)
         {
             string teamInfo = $"\n Nome do Time: {team.Nome}" +

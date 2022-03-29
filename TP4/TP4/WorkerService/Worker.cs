@@ -26,8 +26,8 @@ namespace WorkerService
 
             string[] AskInput ={"Digite o nome do Time a ser adicionado:",
                                 "Digite o número de títulos mundiais do Time:",
-                                "Digite o número de títulos brasileiros do Time: ",
-                                "Informe a data de Criação do Time (formato dd/MM/aaaa):"};
+                                "\n Digite o número de títulos brasileiros do Time: ",
+                                "\n Informe a data de Criação do Time (formato dd/MM/aaaa):"};
 
             bool Menu = true;
             string? menuOption;
@@ -115,9 +115,12 @@ namespace WorkerService
                         break;
                         
                     case "3":
-                        Console.WriteLine(AskInput[0]);
 
-                        _teamReposirotie.Edit(0, "FLA");
+                        _teamReposirotie.ShowAllTeams();
+                        Console.WriteLine(AskInput[3]);
+                        if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly editData))
+                            Console.WriteLine("Digite uma data no formato pedido.");
+                        _teamReposirotie.Edit(0, "FLA", 1, 2, editData);
                         
                         break;
                     case "4":
