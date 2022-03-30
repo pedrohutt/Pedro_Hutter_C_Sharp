@@ -1,3 +1,4 @@
+#nullable disable
 using Domain;
 using Infraestructure;
 using Microsoft.Extensions.Hosting;
@@ -31,7 +32,7 @@ namespace WorkerService
 
             int listIndex;
             bool Menu = true;
-            string? menuOption;
+            string menuOption;
             do
             {
                 Console.WriteLine("\n### Gerenciador de Times de Futebol ###"
@@ -49,7 +50,7 @@ namespace WorkerService
                     case "1":
                         
                         Console.WriteLine(AskInput[0]);
-                        string? nome = Console.ReadLine().ToUpper();
+                        string nome = Console.ReadLine().ToUpper();
 
                         Console.WriteLine(AskInput[1]);
                         if (!byte.TryParse(Console.ReadLine(), out byte titulosMundiais))
@@ -126,7 +127,7 @@ namespace WorkerService
                             break;
 
                         Console.WriteLine(AskInput[0]);
-                        string? editNome = Console.ReadLine().ToUpper();
+                        string editNome = Console.ReadLine().ToUpper();
 
                         Console.WriteLine(AskInput[1]);
                         if (!byte.TryParse(Console.ReadLine(), out byte editTitulosM))

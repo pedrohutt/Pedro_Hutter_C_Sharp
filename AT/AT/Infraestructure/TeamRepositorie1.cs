@@ -1,5 +1,5 @@
-﻿using Domain;
-using System.Collections.Generic;
+﻿#nullable disable
+using Domain;
 
 
 namespace Infraestructure
