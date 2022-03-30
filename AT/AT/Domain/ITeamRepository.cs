@@ -10,6 +10,7 @@ namespace Domain
     {
         IList<Team> Search(string searchString);
         IList<Team> Edit(int id, string nome, byte titulosM, int titulosBR, DateOnly dataCriacao);
+        IList<Team> Delete(int id);
         void Add(Team team);
         string ShowTeamInfo(Team team);
         IList<Team> ShowAllTeams();

@@ -35,6 +35,15 @@ namespace Infraestructure
             return editedTeam;
         }
 
+        public IList<Team> Delete(int i)
+        {
+            var index = _teamsList[i].Id;
+            var itemToRemove = _teamsList.SingleOrDefault(r => r.Id == index);
+            if (itemToRemove != null)
+                _teamsList.Remove(itemToRemove);
+            return _teamsList;
+        }
+
         public IList<Team> ShowAllTeams()
         {
             int index = 0;

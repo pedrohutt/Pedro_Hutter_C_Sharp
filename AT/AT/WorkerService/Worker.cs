@@ -29,6 +29,7 @@ namespace WorkerService
                                 "\n Digite o número de títulos brasileiros do Time: ",
                                 "\n Informe a data de Criação do Time (formato dd/MM/aaaa):"};
 
+            int listIndex;
             bool Menu = true;
             string? menuOption;
             do
@@ -41,9 +42,10 @@ namespace WorkerService
                                 + "\n 4 - Remover as informações de um time"
                                 + "\n 5 - Fechar o programa");
 
+
                 menuOption = Console.ReadLine();
                 switch (menuOption)
-                {
+                {   
                     case "1":
                         
                         Console.WriteLine(AskInput[0]);
@@ -116,11 +118,11 @@ namespace WorkerService
                         break;
                         
                     case "3":
-
+ 
                         _teamReposirotie.ShowAllTeams();
                         Console.WriteLine("Digite o número do time que deseja alterar:");
 
-                        if (!int.TryParse(Console.ReadLine(), out int listIndex))
+                        if (!int.TryParse(Console.ReadLine(), out listIndex))
                             break;
 
                         Console.WriteLine(AskInput[0]);
@@ -143,8 +145,19 @@ namespace WorkerService
 
                     case "4":
 
-                        //DeleteTeam();
-                    case"5":
+                        _teamReposirotie.ShowAllTeams();
+                        Console.WriteLine("Digite o número do time que deseja deletar:");
+                        if (!int.TryParse(Console.ReadLine(), out listIndex))
+                        {
+                            Console.WriteLine("Número inválido. Tente Novamente.");
+                            break;
+                        }   
+                        _teamReposirotie.Delete(listIndex);
+                        Console.WriteLine($"Time deletado com sucesso!");
+                        break;
+
+                    case "5":
+
                         Console.WriteLine("Fechando o programa! Digite qualquer tecla para fechar o aplicativo.");
                         Menu = false;
                         break;
