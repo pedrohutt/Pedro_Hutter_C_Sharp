@@ -18,6 +18,7 @@ namespace Infraestructure
             }
             return teams;
         }
+
         public void Add(Team team)
         {
             if (team != null)
@@ -32,7 +33,6 @@ namespace Infraestructure
             _teamsList[i].TitulosBrasileiros = titulosBR;
             _teamsList[i].DataCriacao = dataCriacao;
             return editedTeam;
-
         }
 
         public IList<Team> ShowAllTeams()

@@ -13,6 +13,5 @@ namespace Domain
         void Add(Team team);
         string ShowTeamInfo(Team team);
         IList<Team> ShowAllTeams();
-
     }
 }

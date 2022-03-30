@@ -24,7 +24,7 @@ namespace WorkerService
             const string confirmation = "\n Confirme os dados e escolha uma opção." +
                                         "\n 1 - Correto" + "\n 2 - Incorreto";
 
-            string[] AskInput ={"Digite o nome do Time a ser adicionado:",
+            string[] AskInput ={"Digite o nome do Time:",
                                 "Digite o número de títulos mundiais do Time:",
                                 "\n Digite o número de títulos brasileiros do Time: ",
                                 "\n Informe a data de Criação do Time (formato dd/MM/aaaa):"};
@@ -86,6 +86,7 @@ namespace WorkerService
                         break;
 
                     case "2":
+
                         Console.WriteLine("\n Digite o nome do Time que deseja ter mais informações: ");
                         string searchString = Console.ReadLine().ToUpper();
                         var teamsFound = _teamReposirotie.Search(searchString);
@@ -117,13 +118,31 @@ namespace WorkerService
                     case "3":
 
                         _teamReposirotie.ShowAllTeams();
+                        Console.WriteLine("Digite o número do time que deseja alterar:");
+
+                        if (!int.TryParse(Console.ReadLine(), out int listIndex))
+                            break;
+
+                        Console.WriteLine(AskInput[0]);
+                        string? editNome = Console.ReadLine().ToUpper();
+
+                        Console.WriteLine(AskInput[1]);
+                        if (!byte.TryParse(Console.ReadLine(), out byte editTitulosM))
+                            Console.WriteLine("Digite um número. Será considerado 0");
+
+                        Console.WriteLine(AskInput[2]);
+                        if (!int.TryParse(Console.ReadLine(), out int editTitulosBR))
+                            Console.WriteLine("Digite um número. Será considerado 0");
+
                         Console.WriteLine(AskInput[3]);
                         if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly editData))
                             Console.WriteLine("Digite uma data no formato pedido.");
-                        _teamReposirotie.Edit(0, "FLA", 1, 2, editData);
-                        
+
+                        _teamReposirotie.Edit(listIndex, editNome, editTitulosM, editTitulosBR, editData);
                         break;
+
                     case "4":
+
                         //DeleteTeam();
                     case"5":
                         Console.WriteLine("Fechando o programa! Digite qualquer tecla para fechar o aplicativo.");
