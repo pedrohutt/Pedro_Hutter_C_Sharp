@@ -71,21 +71,21 @@ namespace AT_CRUD
 
         void AddTeam()
         {
-            Console.WriteLine("id: ");
+            Console.Write("\nDigite 1 para adicionar um time: ");
             var id = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("\n Digite o nome do Time:");
+            Console.Write("\n Digite o nome do Time: ");
             var nome = Console.ReadLine().ToUpper();
 
-            Console.WriteLine("\n Digite o número de títulos mundiais do Time:");
+            Console.Write("\n Digite o número de títulos mundiais do Time: ");
             if (!short.TryParse(Console.ReadLine(), out short titulosMundiais))
                 Console.WriteLine("Digite um número. Será considerado 0");
 
-            Console.WriteLine("\n Digite o número de títulos brasileiros do Time:");
+            Console.Write("\n Digite o número de títulos brasileiros do Time: ");
             if (!byte.TryParse(Console.ReadLine(), out byte titulosBR))
                 Console.WriteLine("Digite um número. Será considerado 0");
 
-            Console.Write("\n Informe a data de Criação do Time (formato dd/MM/aaaa):");
+            Console.Write("\n Informe a data de Criação do Time (formato dd/MM/aaaa): ");
             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dataCriacao))
                 Console.WriteLine("Digite uma data no formato pedido.");
 
@@ -123,7 +123,7 @@ namespace AT_CRUD
         }
         void SearchTeam()
         {
-            Console.WriteLine("\n== Digite o nome do time que deseja ter mais informações: ");
+            Console.WriteLine("\n== Digite um termo presente no nome do time que deseja ter mais informações: ");
             var partialName = Console.ReadLine();
 
             var resultList = _teamRepositorie.GetName(partialName);
@@ -140,8 +140,12 @@ namespace AT_CRUD
 
             foreach (var team in resultList)
             {
-                Console.WriteLine($"\t {team}");
-                Console.WriteLine($"o time possui {team.tempoAtivo()} anos de história!");
+                Console.WriteLine($"\n ID = {team.Id} - Nome = {team.Name} " +
+                $"\n Titulos Mundiais = {team.TitulosMundiais} " +
+                $"\n Titulos Brasileiros = {team.TitulosBR} " +
+                $"\n Data de fundação  do time = {team.Criacao}");
+
+                Console.WriteLine($"O time possui {team.tempoAtivo()} anos de história!");
             }
         } 
         void EditTeam()
@@ -206,6 +210,11 @@ namespace AT_CRUD
         {
 
             var resultList = _teamRepositorie.GetTeams();
+
+            foreach (var team in resultList)
+            {
+                Console.WriteLine($"{team.Id} - {team.Name}");
+            }
             Console.WriteLine("\nDigite o número que deseja excluir: ");
 
             int.TryParse(Console.ReadLine(), out int id);

@@ -8,13 +8,13 @@ namespace Infraestructure
     {
         public List<Team> _teamRepositorie = new List<Team>();
 
-        private readonly string _direc;
-        private readonly string _fil = "TeamTextFile.txt";
+        private readonly string dir;
+        private readonly string file = "TeamTextFile.txt";
 
         public TeamRepositoryInText()
         {
 
-            _direc = Directory.GetCurrentDirectory();
+            dir = Directory.GetCurrentDirectory();
             CreateFiles();
             ReadFiles();
         }
@@ -24,7 +24,7 @@ namespace Infraestructure
         {
             var donations = new List<Team>();
 
-            var path = $@"{_direc}\{_fil}";
+            var path = $@"{dir}\{file}";
             if (File.Exists(path))
             {
                 using (var openFile = File.OpenRead(path))
@@ -48,7 +48,7 @@ namespace Infraestructure
         }
         private void CreateFiles()
         {
-            var path = $@"{_direc}\{_fil}";
+            var path = $@"{dir}\{file}";
 
             if (!File.Exists(path))
             {
@@ -59,12 +59,12 @@ namespace Infraestructure
 
         public void Save()
         {
-            string fileRoute = $@"{_direc}\{_fil}";
+            string fileRoute = $@"{dir}\{file}";
             var way = new List<string>();
 
-            foreach (Team donation in _teamRepositorie)
+            foreach (Team team in _teamRepositorie)
             {
-                way.Add(donation.ToString());
+                way.Add(team.ToString());
             }
 
             if (File.Exists(fileRoute))
@@ -75,27 +75,27 @@ namespace Infraestructure
         }
 
 
-        public void Insert(Team donation)
+        public void Insert(Team team)
         {
             var count = _teamRepositorie.Any() ? _teamRepositorie.Max(x => x.Id) + 1 : 1;
-            donation.Id = count;
-            _teamRepositorie.Add(donation);
+            team.Id = count;
+            _teamRepositorie.Add(team);
             Save();
 
         }
-        public void Update(Team donation)
+        public void Update(Team team)
         {
-            var result = _teamRepositorie.FirstOrDefault(x => x.Id == donation.Id);
+            var result = _teamRepositorie.FirstOrDefault(x => x.Id == team.Id);
             if (result != null)
             {
                 _teamRepositorie.Remove(result);
-                _teamRepositorie.Add(donation);
+                _teamRepositorie.Add(team);
                 Save();
             }
         }
-        public void Delete(Team donation)
+        public void Delete(Team team)
         {
-            var result = GetForId(donation.Id);
+            var result = GetForId(team.Id);
 
             if (result != null)
             {

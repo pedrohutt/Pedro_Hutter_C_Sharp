@@ -36,7 +36,7 @@ namespace Domain
             return Criacao;
         }
 
-        public string GetTeamInfo() => string.Format("Id: {0} Nome: {1} Tempo Ativo: {2}", Id, Name, tempoAtivo());
+        public string GetTeamInfo() => string.Format("Id: {0} Nome: {1} - Tempo Ativo: {2}", Id, Name, tempoAtivo());
 
         public override string ToString()
         {
