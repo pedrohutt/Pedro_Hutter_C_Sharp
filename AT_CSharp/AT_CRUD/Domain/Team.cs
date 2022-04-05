@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 namespace Domain
 {
     public class Team
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public short TitulosBR { get; set; }
-        public byte TitulosMundiais { get; set; }
-        public DateOnly Criacao { get; set; }
-
+    {   
         public Team(int id,string name, short titulosBR, byte titulosM, DateOnly criacao)
         {
-
             Id = id;
             Name = name;
             TitulosBR = titulosBR;
             TitulosMundiais = titulosM;
             Criacao = criacao;
         }
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public short TitulosBR { get; set; }
+        public byte TitulosMundiais { get; set; }
+        public DateOnly Criacao { get; set; }
 
         public int tempoAtivo()
         {

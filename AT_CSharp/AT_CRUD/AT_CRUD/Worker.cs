@@ -29,8 +29,8 @@ namespace AT_CRUD
                                 + "\n 2 - Pesquise por um Time (Nome)"
                                 + "\n 3 - Editar as informações de um time"
                                 + "\n 4 - Remover as informações de um time"
-                                + "\n 5 - Fechar o programa");
-                Console.WriteLine("--------------------------------------");
+                                + "\n 5 - Fechar o programa"
+                                + "\n --------------------------------------");
                 Console.Write("\nEscolha uma das opções acima: ");
             }
 
@@ -38,9 +38,7 @@ namespace AT_CRUD
             do
             {
                 ShowMenu();
-
                 option = Console.ReadLine();
-
                 switch (option)
                 {
                     case "1":
@@ -65,8 +63,8 @@ namespace AT_CRUD
                 }
                 Console.WriteLine(pressButtons);
                 Console.ReadKey();
-            }
-            while (option != "5");
+
+            } while (option != "5");
         }
 
         void AddTeam()
@@ -115,11 +113,8 @@ namespace AT_CRUD
                     Console.WriteLine($"{team.GetTeamInfo()}");
                 }
             }
-            else
-            {
-                Console.WriteLine("\nNão foi encontrado nenhum time!");
-
-            }
+            else Console.WriteLine("\nNão foi encontrado nenhum time!");
+            
         }
         void SearchTeam()
         {
@@ -130,13 +125,10 @@ namespace AT_CRUD
 
             if (!resultList.Any())
             {
-                Console.WriteLine("==========");
                 Console.WriteLine("\nNenhum time encontrado!");
                 return;
             }
-
-            Console.Write("==========");
-            Console.WriteLine("\nResultado da busca: ");
+            Console.WriteLine("\n Times encontrados: ");
 
             foreach (var team in resultList)
             {
@@ -208,19 +200,17 @@ namespace AT_CRUD
         }
         void DeleteTeam()
         {
-
             var resultList = _teamRepositorie.GetTeams();
 
             foreach (var team in resultList)
             {
                 Console.WriteLine($"{team.Id} - {team.Name}");
             }
-            Console.WriteLine("\nDigite o número que deseja excluir: ");
 
+            Console.WriteLine("\nDigite o número que deseja excluir: ");
             int.TryParse(Console.ReadLine(), out int id);
 
             var resultDonation = resultList.FirstOrDefault(p => p.Id == id);
-
             var result = resultList.FirstOrDefault(p => p.Id == id);
             if (result == null)
             {

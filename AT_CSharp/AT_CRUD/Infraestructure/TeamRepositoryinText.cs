@@ -10,7 +10,6 @@ namespace Infraestructure
 
         private readonly string dir;
         private readonly string file = "TeamTextFile.txt";
-
         public TeamRepositoryInText()
         {
 
@@ -18,8 +17,6 @@ namespace Infraestructure
             CreateFiles();
             ReadFiles();
         }
-
-
         public void ReadFiles()
         {
             var donations = new List<Team>();
@@ -55,8 +52,6 @@ namespace Infraestructure
                 File.Create(path);
             }
         }
-
-
         public void Save()
         {
             string fileRoute = $@"{dir}\{file}";
@@ -73,8 +68,6 @@ namespace Infraestructure
                 ReadFiles();
             }
         }
-
-
         public void Insert(Team team)
         {
             var count = _teamRepositorie.Any() ? _teamRepositorie.Max(x => x.Id) + 1 : 1;
@@ -107,17 +100,14 @@ namespace Infraestructure
         {
             return _teamRepositorie;
         }
-
         public Team GetForId(int id)
         {
             return _teamRepositorie.FirstOrDefault(x => x.Id == id);
         }
-
         public IEnumerable<Team> GetName(string name)
         {
             return _teamRepositorie.Where(x => Regex.IsMatch(x.Name, name, RegexOptions.IgnoreCase));
         }
-
         public IList<Team> GetFiveLast()
         {
             return _teamRepositorie.OrderByDescending(x => x.GetDataRegister()).Take(5).ToList();

@@ -2,14 +2,14 @@ using AT_CRUD;
 using Domain;
 using Infraestructure;
 
-    IHost host = Host.CreateDefaultBuilder(args)
-    .ConfigureServices(services =>
-    {
-        services.AddSingleton<ITeamRepository, TeamRepositoryInText>();
-        services.AddHostedService<Worker>();
+IHost host = Host.CreateDefaultBuilder(args)
+.ConfigureServices(services =>
+{
+    services.AddSingleton<ITeamRepository, TeamRepositoryInText>();
+    services.AddHostedService<Worker>();
 
-    })
-    .Build();
+})
+.Build();
 
-    await host.RunAsync();
+await host.RunAsync();
 
