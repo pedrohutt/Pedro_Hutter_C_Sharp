@@ -11,11 +11,11 @@ namespace WorkerService
 {
     public class Worker : BackgroundService
     {
-        private readonly ITeamRepository _teamReposirotie;
+        private readonly ITeamRepository _teamRepositorie;
 
-        public Worker(ITeamRepository repositorie)
+        public Worker(ITeamRepository repositorie, IConfiguration configuration)
         {
-            _teamReposirotie = repositorie;
+            _teamRepositorie = repositorie;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -30,11 +30,11 @@ namespace WorkerService
                                 "\n Digite o número de títulos brasileiros do Time: ",
                                 "\n Informe a data de Criação do Time (formato dd/MM/aaaa):"};
 
-            int listIndex;
-            bool Menu = true;
+            _teamRepositorie.GetFiveLast();
             string menuOption;
             do
             {
+                //Console.Clear();
                 Console.WriteLine("\n### Gerenciador de Times de Futebol ###"
                                 + "\n Escolha uma das opções..."
                                 + "\n 1 - Adicionar um novo Time"
@@ -43,129 +43,159 @@ namespace WorkerService
                                 + "\n 4 - Remover as informações de um time"
                                 + "\n 5 - Fechar o programa");
 
-
                 menuOption = Console.ReadLine();
+                
+
                 switch (menuOption)
                 {   
                     case "1":
-                        
-                        Console.WriteLine(AskInput[0]);
-                        string nome = Console.ReadLine().ToUpper();
-
-                        Console.WriteLine(AskInput[1]);
-                        if (!byte.TryParse(Console.ReadLine(), out byte titulosMundiais))
-                            Console.WriteLine("Digite um número. Será considerado 0");
-
-                        Console.WriteLine(AskInput[2]);
-                        if (!int.TryParse(Console.ReadLine(), out int titulosBR)) 
-                            Console.WriteLine("Digite um número. Será considerado 0");
-
-                        Console.WriteLine(AskInput[3]);
-                        if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dataCriacao))
-                            Console.WriteLine("Digite uma data no formato pedido.");
-
-                        Console.WriteLine($"\n Nome {nome}  -  Titulos Mundiais {titulosMundiais}" +
-                                          $"\n Titulos Brasileiros {titulosBR}" +
-                                          $"\n Data de Criação {dataCriacao}" +
-                                          $"\n {confirmation}");
-
-                        if (!int.TryParse(Console.ReadLine(), out int Option))
-                            Console.WriteLine("Opção inválida!");
-
-                        if (Option == 1)
-                        {
-                            Team team = new()
-                            {
-                                Nome = nome,
-                                TitulosMundiais = titulosMundiais,
-                                TitulosBrasileiros = titulosBR,
-                                DataCriacao = dataCriacao,  
-                            };
-                            _teamReposirotie.Add(team);
-                            Console.WriteLine("Usuário cadastrado!");
-                        }
-                        else
-                          Console.WriteLine("Tente novamente!");
+                        AddTeam();
                         break;
 
                     case "2":
 
-                        Console.WriteLine("\n Digite o nome do Time que deseja ter mais informações: ");
-                        string searchString = Console.ReadLine().ToUpper();
-                        var teamsFound = _teamReposirotie.Search(searchString);
-
-                        if (teamsFound.Count > 0)
-                        {
-                            Console.WriteLine("\n Escolha o número relacionado ao time que deseja ter mais informações:");
-                            for (var index = 0; index < teamsFound.Count; index++)
-                            {
-                                Console.WriteLine($"{index} - {teamsFound[index].Nome}");
-                            }
-                            if (!int.TryParse(Console.ReadLine(), out var indexOption) || indexOption > teamsFound.Count)
-                            {
-                                Console.WriteLine("Número escolhido inválido");
-                                continue;
-                            }
-                            if (indexOption < teamsFound.Count)
-                            {
-                                var teams = teamsFound[indexOption];
-                                Console.WriteLine(_teamReposirotie.ShowTeamInfo(teams));
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Não foi encontrado nenhum time.");
-                        }
+                        SearchTeam();
                         break;
                         
                     case "3":
- 
-                        _teamReposirotie.ShowAllTeams();
-                        Console.WriteLine("Digite o número do time que deseja alterar:");
 
-                        if (!int.TryParse(Console.ReadLine(), out listIndex))
-                            break;
-
-                        Console.WriteLine(AskInput[0]);
-                        string editNome = Console.ReadLine().ToUpper();
-
-                        Console.WriteLine(AskInput[1]);
-                        if (!byte.TryParse(Console.ReadLine(), out byte editTitulosM))
-                            Console.WriteLine("Digite um número. Será considerado 0");
-
-                        Console.WriteLine(AskInput[2]);
-                        if (!int.TryParse(Console.ReadLine(), out int editTitulosBR))
-                            Console.WriteLine("Digite um número. Será considerado 0");
-
-                        Console.WriteLine(AskInput[3]);
-                        if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly editData))
-                            Console.WriteLine("Digite uma data no formato pedido.");
-
-                        _teamReposirotie.Edit(listIndex, editNome, editTitulosM, editTitulosBR, editData);
+                        EditTeam();
                         break;
 
                     case "4":
 
-                        _teamReposirotie.ShowAllTeams();
-                        Console.WriteLine("Digite o número do time que deseja deletar:");
-                        if (!int.TryParse(Console.ReadLine(), out listIndex))
-                        {
-                            Console.WriteLine("Número inválido. Tente Novamente.");
-                            break;
-                        }   
-                        _teamReposirotie.Delete(listIndex);
-                        Console.WriteLine($"Time deletado com sucesso!");
+                        DeleteTeam();
                         break;
 
                     case "5":
 
                         Console.WriteLine("Fechando o programa! Digite qualquer tecla para fechar o aplicativo.");
-                        Menu = false;
                         break;
-                    default:
-                        break;
+
+                    default: break;                    
                 }
-            } while (Menu == true);
+            } while (menuOption != "5");
+
+            void AddTeam()
+            {       
+                Console.WriteLine("Digite um Id");
+                if (!int.TryParse(Console.ReadLine(), out int id))
+                {
+                    Console.WriteLine("Digite um número válido");
+                    BackToMenu();
+                    return;
+                }
+                    
+                Console.WriteLine(AskInput[0]);
+                string nome = Console.ReadLine().ToUpper();
+
+                Console.WriteLine(AskInput[1]);
+                if (!byte.TryParse(Console.ReadLine(), out byte titulosMundiais))
+                    Console.WriteLine("Digite um número. Será considerado 0");
+
+                Console.WriteLine(AskInput[2]);
+                if (!short.TryParse(Console.ReadLine(), out short titulosBR))
+                    Console.WriteLine("Digite um número. Será considerado 0");
+
+                Console.WriteLine(AskInput[3]);
+                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dataCriacao))
+                    Console.WriteLine("Digite uma data no formato pedido.");
+
+                Console.WriteLine($"\n Nome {nome}  -  Titulos Mundiais {titulosMundiais}" +
+                                  $"\n Titulos Brasileiros {titulosBR}" +
+                                  $"\n Data de Criação {dataCriacao}" +
+                                  $"\n {confirmation}");
+
+                if (!int.TryParse(Console.ReadLine(), out int Option))
+                {
+                    BackToMenu();
+                    return ;
+                }
+                  
+
+                if (Option == 1)
+                {
+                    Team team = new(id, nome, titulosMundiais, titulosBR, dataCriacao);
+                    _teamRepositorie.Insert(team);
+                    Console.WriteLine("Usuário cadastrado!");
+                }
+                else
+                    Console.WriteLine("Tente novamente!");
+            }
+
+            void EditTeam()
+            {
+                Console.WriteLine("Digite o nome do time que deseja alterar:");
+                var partialName = Console.ReadLine().ToUpper();
+
+                var resultList = _teamRepositorie.Search(partialName);
+
+                if (!resultList.Any())
+                {
+                    Console.WriteLine("\nNenhum resultado encontrado");
+                    return;
+                }
+
+                Console.WriteLine("\nDigite o id que deseja alterar:");
+                int.TryParse(Console.ReadLine(), out int id);
+
+                var resultDonation = resultList.FirstOrDefault(p => p.Id == id);
+
+                Console.WriteLine(AskInput[0]);
+                string editNome = Console.ReadLine().ToUpper();
+
+                Console.WriteLine(AskInput[1]);
+                if (!byte.TryParse(Console.ReadLine(), out byte editTitulosM))
+                    Console.WriteLine("Digite um número. Será considerado 0");
+
+                Console.WriteLine(AskInput[2]);
+                if (!short.TryParse(Console.ReadLine(), out short editTitulosBR))
+                    Console.WriteLine("Digite um número. Será considerado 0");
+
+                Console.WriteLine(AskInput[3]);
+                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly editData))
+                    Console.WriteLine("Digite uma data no formato pedido.");
+
+
+                Team editTeam = new(id, editNome, editTitulosM, editTitulosBR, editData);
+                _teamRepositorie.Update(editTeam);
+            }
+
+            void SearchTeam()
+            {
+                Console.WriteLine("\n Digite o nome do Time que deseja ter mais informações: ");
+                string searchString = Console.ReadLine().ToUpper();
+                var teamsFound = _teamRepositorie.Search(searchString);
+
+                if (!teamsFound.Any())
+                {
+                    Console.WriteLine($"Não foi encontrado nenhum time.");
+                    return;
+                }
+                foreach (var team in teamsFound)
+                {
+                    Console.WriteLine($"{team.ShowTeamInfo()}");
+                }               
+            }
+            void DeleteTeam()
+            {
+                var resultList = _teamRepositorie.GetAllTeams();
+                Console.WriteLine("\n Digite o número do Time que deseja deletar: ");
+                int.TryParse(Console.ReadLine(), out int id);
+                var result = resultList.FirstOrDefault(p => p.Id == id);
+                if (result == null)
+                    Console.WriteLine("Número inválido. Tente Novamente.");
+
+                _teamRepositorie.Delete(result);
+                Console.WriteLine($"Time deletado com sucesso!");
+            }
+
+            static void BackToMenu()
+            {
+                Console.WriteLine("Data inválida! Dados descartados! Pressione qualquer tecla para exibir o menu principal ...");
+                Console.ReadKey();
+            }
+
         }
     } 
 }

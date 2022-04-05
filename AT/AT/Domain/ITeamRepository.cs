@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Domain
 {
     public interface ITeamRepository
     {
-        IList<Team> Search(string searchString);
-        IList<Team> Edit(int id, string nome, byte titulosM, int titulosBR, DateOnly dataCriacao);
-        IList<Team> Delete(int id);
-        void Add(Team team);
-        string ShowTeamInfo(Team team);
-        IList<Team> ShowAllTeams();
+        IEnumerable<Team> Search(string searchString);
+        Team GetById(int id);
+        IList<Team> GetFiveLast();
+        IEnumerable<Team> GetAllTeams(); 
+        void Delete(Team team);
+        void Insert(Team team);
+        void Update(Team team);
     }
 }
