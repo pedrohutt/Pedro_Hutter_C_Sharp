@@ -74,10 +74,10 @@ namespace AT_CRUD
             Console.WriteLine("id: ");
             var id = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Digite o nome do Time:");
+            Console.WriteLine("\n Digite o nome do Time:");
             var nome = Console.ReadLine().ToUpper();
 
-            Console.WriteLine("Digite o número de títulos mundiais do Time:");
+            Console.WriteLine("\n Digite o número de títulos mundiais do Time:");
             if (!short.TryParse(Console.ReadLine(), out short titulosMundiais))
                 Console.WriteLine("Digite um número. Será considerado 0");
 
@@ -95,10 +95,10 @@ namespace AT_CRUD
                                  $"\n Confirme os dados e escolha uma opção." +
                                   "\n 1 - Correto" + "\n 2 - Incorreto");
 
-            if (!int.TryParse(Console.ReadLine(), out int Option)) return;
+            int.Parse(Console.ReadLine());
             
-            var donation = new Team(id, nome, titulosMundiais, titulosBR, dataCriacao);
-            _teamRepositorie.Insert(donation);
+            var team = new Team(id, nome, titulosMundiais, titulosBR, dataCriacao);
+            _teamRepositorie.Insert(team);
 
             Console.WriteLine("\nTime adicionado com sucesso!");
            
@@ -166,9 +166,9 @@ namespace AT_CRUD
             Console.WriteLine("\nEscolha o ID para correspondente:");
             int.TryParse(Console.ReadLine(), out int id);
 
-            var resultDonation = resultList.FirstOrDefault(p => p.Id == id);
+            var teamEdit = resultList.FirstOrDefault(p => p.Id == id);
 
-            if (resultDonation == null)
+            if (teamEdit == null)
             {
                 Console.WriteLine("\nNenhum time encontrado");
                 return;
@@ -188,11 +188,11 @@ namespace AT_CRUD
             Console.WriteLine("\n Informe a data de Criação do Time (formato dd/MM/aaaa):");
             if (DateOnly.TryParse(Console.ReadLine(), out DateOnly editData))
             {
-                resultDonation.Name = editNome;
-                resultDonation.Criacao = editData;
-                resultDonation.TitulosBR = editTitulosBR;
-                resultDonation.TitulosMundiais = editTitulosM;
-                _teamRepositorie.Update(resultDonation);
+                teamEdit.Name = editNome;
+                teamEdit.Criacao = editData;
+                teamEdit.TitulosBR = editTitulosBR;
+                teamEdit.TitulosMundiais = editTitulosM;
+                _teamRepositorie.Update(teamEdit);
                 Console.WriteLine("\nTime alterado com sucesso!");
             }
             else

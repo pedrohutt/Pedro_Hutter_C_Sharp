@@ -83,7 +83,6 @@ namespace Infraestructure
             Save();
 
         }
-
         public void Update(Team donation)
         {
             var result = _teamRepositorie.FirstOrDefault(x => x.Id == donation.Id);
@@ -94,7 +93,6 @@ namespace Infraestructure
                 Save();
             }
         }
-
         public void Delete(Team donation)
         {
             var result = GetForId(donation.Id);
@@ -104,9 +102,7 @@ namespace Infraestructure
                 _teamRepositorie.Remove(result);
                 Save();
             }
-
         }
-
         public IEnumerable<Team> GetTeams()
         {
             return _teamRepositorie;
