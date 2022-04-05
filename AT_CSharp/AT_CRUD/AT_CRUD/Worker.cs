@@ -31,7 +31,7 @@ namespace AT_CRUD
                                 + "\n 4 - Remover as informações de um time"
                                 + "\n 5 - Fechar o programa");
                 Console.WriteLine("--------------------------------------");
-                Console.WriteLine("\nEscolha uma das opções acima: ");
+                Console.Write("\nEscolha uma das opções acima: ");
             }
 
             string option;
